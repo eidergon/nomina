@@ -1,0 +1,124 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url(../img/MicrosoftTeams-image.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.form {
+    width: 400px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.285);
+    border-radius: 20px;
+}
+
+.form .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.form .form-container .input {
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    padding: 1em;
+    background-color: #ccc;
+    box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.3);
+    transition: 300ms ease-in-out;
+}
+
+.form .form-container .input:focus {
+    background-color: white;
+    transform: scale(1.05);
+    box-shadow: 13px 13px 100px #969696, -13px -13px 100px #ffffff;
+}
+
+.form .form-container .btn {
+    background: linear-gradient(to right, blue, orangered);
+    position: relative;
+    font-size: 17px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: .8rem;
+    display: inline-block;
+    border-radius: 6em;
+    transition: all 0.2s;
+    border: none;
+    font-family: inherit;
+    font-weight: 500;
+    color: white;
+    margin: 10px;
+}
+
+.form .form-container .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.form .form-container .btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.form .form-container .btn::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 0.4s;
+}
+
+.form .form-container .btn::after {
+    background-color: #fff;
+}
+
+.form .form-container .btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+}
+
+.logo {
+    height: 300px;
+    width: 300px;
+    animation: parpadeo 2s infinite;
+}
+
+@keyframes parpadeo {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
+
+.message {
+    font-size: 10px;
+    font-weight: 500;
+    color: #000000;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
