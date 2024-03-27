@@ -105,6 +105,24 @@ $(document).ready(function () {
         });
     });
 
+    $('#visualizar2').submit(function (e) {
+        e.preventDefault();
+
+        var formData = $(this).serialize();
+
+        $.ajax({
+            url: '../php/consulta_malla2.php',
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                $('#resultado').html(response);
+            },
+            error: function (error) {
+                console.log('Error en la búsqueda:', error);
+            }
+        });
+    });
+
     // editar malla 
     $('.link').on('click', function (e) {
         e.preventDefault();
@@ -372,6 +390,20 @@ $(document).ready(function () {
         })
     })
 
+    function otroScript() {
+        $.ajax({
+            url: "../php/sql.php",
+            type: "POST", 
+            success: function(response) {
+                console.log("Script ejecutado correctamente:", response);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error al ejecutar el script:", error);
+            }
+        });
+    }
+    
+
     $("#tardanza").change(function () {
         var selectedValue = $(this).val();
 
@@ -398,6 +430,7 @@ $(document).ready(function () {
             type: 'GET',
             success: function (response) {
                 $('#resultado').html(response);
+                otroScript();
             },
             error: function (error) {
                 console.log('Error al cargar el formulario:', error);

@@ -24,10 +24,6 @@ $nombre = $_SESSION["nombre"];
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<?php if ($perfil === 'EMPLEADO' || $perfil === 'admin') : ?>
-<?php else : ?>
-<?php endif; ?>
-
 <body>
     <header>
         <h3><?php echo $nombre; ?></h3>
@@ -48,6 +44,14 @@ $nombre = $_SESSION["nombre"];
                         <ul class="drop-down">
                             <li class="php" data-form="ver_malla">Turno</li>
                             <li class="php" data-form="ver_info">Informacion</li>
+                        </ul>
+                    </li>
+                <?php elseif ($perfil === 'SUPERVISOR') : ?>
+                    <li class="nav-link service">
+                        <a href="#">Mallas <span class="drop-icon"><i class="fa-solid fa-caret-down"></i></span></a>
+                        <ul class="drop-down">
+                            <li class="php" data-form="ver_malla2">Turno</li>
+                            <li class="php" data-form="ver_info2">Informacion</li>
                         </ul>
                     </li>
                 <?php else : ?>
@@ -114,6 +118,8 @@ $nombre = $_SESSION["nombre"];
 </html>
 
 <?php
-include_once("../php/conexion_ocm.php");
+include_once("../php/conexion_ocm_portabilidad.php");
+include_once("../php/conexion_ocm_medellin.php");
+include_once("../php/conexion_ocm_bogota.php");
 include_once("../php/sql.php");
 ?>

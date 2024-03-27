@@ -19,7 +19,6 @@ $sql = "SELECT * FROM info_malla WHERE cedula = '$user' AND ((DATE_FORMAT(dia, '
 
 
 $result = $conn->query($sql);
-$row = $result->fetch_assoc();
 ?>
 
 <?php if ($result->num_rows > 0) : ?>
@@ -36,8 +35,10 @@ $row = $result->fetch_assoc();
             <thead>
                 <tr>
                     <th>Día</th>
-                    <th>Ingreso</th>
-                    <th>Logueo</th>
+                    <th>Hora De Ingreso</th>
+                    <th>Hora De Salida</th>
+                    <th>Hora De Logueo</th>
+                    <th>Hora De Deslogueo</th>
                     <th>Tiempo</th>
                     <th>Turno</th>
                     <th>Tardanza</th>
@@ -45,29 +46,18 @@ $row = $result->fetch_assoc();
                 </tr>
             </thead>
             <?php while ($row = $result->fetch_assoc()) : ?>
+                <?php $tiempo_en_horas = $row["tiempo"] / 3600;?>
                 <tbody>
                     <tr scope='row'>
-                        <td>
-                            <?= $row["dia"] ?>
-                        </td>
-                        <td>
-                            <?= $row["ingreso"] ?>
-                        </td>
-                        <td>
-                            <?= $row["inicio"] ?>
-                        </td>
-                        <td>
-                            <?= $row["tiempo"] ?>
-                        </td>
-                        <td>
-                            <?= $row["turno"] ?>
-                        </td>
-                        <td>
-                            <?= $row["tardanza"] ?>
-                        </td>
-                        <td>
-                            <?= $row["novedad"] ?>
-                        </td>
+                        <td><?= $row["dia"] ?></td>
+                        <td><?= $row["ingreso"] ?></td>
+                        <td><?= $row["salida"] ?></td>
+                        <td><?= $row["inicio"] ?></td>
+                        <td><?= $row["final"] ?></td>
+                        <td><?= floor($tiempo_en_horas) . "H:" . str_pad(round(($tiempo_en_horas - floor($tiempo_en_horas)) * 60), 2, "0", STR_PAD_LEFT) . "M"; ?></td>
+                        <td><?= $row["turno"] ?></td>
+                        <td><?= $row["tardanza"] ?></td>
+                        <td><?= $row["novedad"] ?></td>
                     </tr>
                 </tbody>
             <?php endwhile; ?>

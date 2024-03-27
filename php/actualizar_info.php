@@ -60,29 +60,16 @@ $row = $result->fetch_assoc();
             </tr>
         </thead>
         <?php while ($row = $result->fetch_assoc()) : ?>
+            <?php $tiempo_en_horas = $row["tiempo"] / 3600; ?>
             <tbody>
                 <tr scope='row'>
-                    <td>
-                        <?= $row["dia"] ?>
-                    </td>
-                    <td>
-                        <?= $row["ingreso"] ?>
-                    </td>
-                    <td>
-                        <?= $row["inicio"] ?>
-                    </td>
-                    <td>
-                        <?= $row["tiempo"] ?>
-                    </td>
-                    <td>
-                        <?= $row["turno"] ?>
-                    </td>
-                    <td>
-                        <?= $row["tardanza"] ?>
-                    </td>
-                    <td>
-                        <?= $row["novedad"] ?>
-                    </td>
+                    <td><?= $row["dia"] ?></td>
+                    <td><?= $row["ingreso"] ?></td>
+                    <td><?= $row["inicio"] ?></td>
+                    <td><?= floor($tiempo_en_horas) . ":" . round(($tiempo_en_horas - floor($tiempo_en_horas)) * 60); ?></td>
+                    <td><?= $row["turno"] ?></td>
+                    <td><?= $row["tardanza"] ?></td>
+                    <td><?= $row["novedad"] ?></td>
                 </tr>
             </tbody>
         <?php endwhile; ?>

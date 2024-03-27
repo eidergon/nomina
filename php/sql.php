@@ -1,11 +1,22 @@
 <?php
 require_once 'conexion.php';
 
+// Consulta 1
+$sql = "UPDATE info_malla
+        SET tardanza = null
+        WHERE TIMEDIFF(inicio, ingreso) <= '00:05:00'
+        AND inicio IS NOT NULL";
+
+if ($conn->query($sql) === TRUE) {
+    // echo "Consulta 2 ejecutada correctamente";
+} else {
+    // echo "Error en la consulta 2: " . $conn->error;
+}
 
 // Consulta 2
 $sql2 = "UPDATE info_malla
         SET tardanza = 'Injustificada'
-        WHERE TIMEDIFF(STR_TO_DATE(inicio, '%H:%i:%s'), STR_TO_DATE(ingreso, '%H:%i:%s')) >= '00:05:00'
+        WHERE TIMEDIFF(inicio, ingreso) > '00:05:00'
         AND inicio IS NOT NULL AND tardanza IS NULL";
 
 if ($conn->query($sql2) === TRUE) {
@@ -36,19 +47,9 @@ if ($conn->query($sql4) === TRUE) {
     // echo "Error en la consulta 2: " . $conn->error;
 }
 
-// Consulta 5
-$sql5 = "UPDATE info_malla SET novedad = 'DESCANSO', turno = 'DESCANSO', tardanza = 'DESCANSO'
-        WHERE ingreso = 'DESCANSO' and novedad is null";
-
-if ($conn->query($sql5) === TRUE) {
-    // echo "Consulta 2 ejecutada correctamente";
-} else {
-    // echo "Error en la consulta 2: " . $conn->error;
-}
-
 // Consulta 6
 $currentDate = date("Y-m-d");
-$sql6 = "UPDATE info_malla SET novedad = 'INJUSTIFICADA' WHERE ingreso != 'DESCANSO' and inicio is null AND DATE(dia) < '$currentDate' and novedad is null";
+$sql6 = "UPDATE info_malla SET novedad = 'INJUSTIFICADA' WHERE inicio is null AND DATE(dia) < '$currentDate' and novedad is null";
 
 if ($conn->query($sql6) === TRUE) {
     // echo "Consulta 2 ejecutada correctamente";

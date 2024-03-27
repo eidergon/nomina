@@ -11,8 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($tardanza === 'Injustificada') {
         $sql = "UPDATE info_malla SET tardanza = '$tardanza', aprobacion = null, motivo = null WHERE dia = '$dia' AND cedula = '$cedula'";
-    } else {
-        $sql = "UPDATE info_malla SET tardanza = '$tardanza', aprobacion = '$nombre', motivo = $motivo WHERE dia = '$dia' AND cedula = '$cedula'";
+    } elseif ($tardanza === 'Justificada') {
+        $sql = "UPDATE info_malla SET tardanza = '$tardanza', aprobacion = '$nombre', motivo = '$motivo' WHERE dia = '$dia' AND cedula = '$cedula'";
     }
 
     if (mysqli_query($conn, $sql)) {

@@ -24,8 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $dia = !empty($datos[0]) ? ($datos[0]) : '';
             $cedula = !empty($datos[1]) ? ($datos[1]) : '';
             $asesor = !empty($datos[2]) ? ($datos[2]) : '';
-            $ingreso = !empty($datos[3]) ? ($datos[3]) : '';
-            $salida = !empty($datos[4]) ? ($datos[4]) : '';
+            $ingreso = !empty($datos[3]) ? rtrim($datos[3]) : '';
+            $salida = !empty($datos[4]) ? rtrim($datos[4]) : '';
 
             $checkQuery = "SELECT cedula, dia FROM info_malla WHERE cedula = '$cedula' AND dia = '$dia'";
             $checkResult = mysqli_query($conn, $checkQuery);
@@ -61,6 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     header('Content-Type: application/json');
     echo json_encode($response);
-    include_once("conexion_ocm.php");
+    include_once("conexion_ocm_portabilidad.php");
+    include_once("conexion_ocm_medellin.php");
+    include_once("conexion_ocm_bogota.php");
     include_once("sql.php");
 }

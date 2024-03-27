@@ -20,7 +20,7 @@ session_destroy();
 
 <body>
     <form class="form" method="POST">
-        <a href="https://onecontact.com.mx/"><img src="img/logo-removebg-preview 2.ico" alt="Logo" class="logo"></a>
+        <a href="#"><img src="img/logo-removebg-preview 2.ico" alt="Logo" class="logo"></a>
         <div class="form-container">
             <input type="text" name="usuario" class="input" placeholder="Usuario" required>
             <input type="password" name="pass" class="input" placeholder="Contraseña" required>

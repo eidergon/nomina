@@ -53,24 +53,12 @@ $conn->close();
         <tbody>
             <?php while ($row = $result->fetch_assoc()) : ?>
                 <tr scope='row'>
-                    <td>
-                        <?php echo $row["dia"]; ?>
-                    </td>
-                    <td>
-                        <?php echo $row["asesor"]; ?>
-                    </td>
-                    <td>
-                        <?php echo $row["ingreso"]; ?>
-                    </td>
-                    <td>
-                        <?php echo $row["inicio"]; ?>
-                    </td>
-                    <td>
-                        <?php echo $row["turno"]; ?>
-                    </td>
-                    <td>
-                        <?php echo $row["tardanza"]; ?>
-                    </td>
+                    <td><?php echo $row["dia"]; ?></td>
+                    <td><?php echo $row["asesor"]; ?></td>
+                    <td><?php echo $row["ingreso"]; ?></td>
+                    <td><?php echo $row["inicio"]; ?></td>
+                    <td><?php echo $row["turno"]; ?></td>
+                    <td><?php echo $row["tardanza"]; ?></td>
                     <td>
                         <button class="link edit" data-form="editar_tardanza" data-cedula='<?= $row['cedula'] ?>' data-dia='<?= $row['dia'] ?>'>
                             <svg class="css-i6dzq1" stroke-linejoin="round" stroke-linecap="round" fill="none" stroke-width="2" stroke="#FFFFFF" height="24" width="24" viewBox="0 0 24 24">
