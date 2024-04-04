@@ -1,18 +1,17 @@
 <?php
-session_start();
+    session_start();
 
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-    header('Location: ../');
-    exit();
-}
+    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+        header('Location: ../');
+        exit();
+    }
 
-$perfil = $_SESSION["perfil"];
-$nombre = $_SESSION["nombre"];
+    $perfil = $_SESSION["perfil"];
+    $nombre = $_SESSION["nombre"];
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +22,6 @@ $nombre = $_SESSION["nombre"];
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-
 <body>
     <header>
         <h3><?php echo $nombre; ?></h3>
@@ -108,13 +106,10 @@ $nombre = $_SESSION["nombre"];
         </div>
     </header>
 
-    <main id="resultado">
-
-    </main>
+    <main id="resultado"></main>
 
     <script src="../js/script.js"></script>
 </body>
-
 </html>
 
 <?php

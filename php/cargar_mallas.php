@@ -47,12 +47,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $i++;
     }
 
+    // Obtener el primer y último día del mes
+    $primer_dia_mes = date('Y-m-01');
+    $ultimo_dia_mes = date('Y-m-t');
+
+    // Obtener todas las fechas entre el primer y último día del mes
+    $fechas_mes = array();
+    $fecha_actual = $primer_dia_mes;
+    while ($fecha_actual <= $ultimo_dia_mes) {
+        $fechas_mes[] = $fecha_actual;
+        $fecha_actual = date('Y-m-d', strtotime($fecha_actual . ' +1 day'));
+    }
+
+    // Obtener fechas presentes en el archivo Excel
+    $fechas_excel = array();
+    foreach ($lineas as $linea) {
+        $datos = explode(";", $linea);
+        $dia = !empty($datos[0]) ? $datos[0] : '';
+        $fechas_excel[] = $dia;
+    }
+
+    // Obtener fechas faltantes del mes
+    $fechas_faltantes = array_diff($fechas_mes, $fechas_excel);
+
+    // Insertar registros para las fechas faltantes con los mismos datos de cédula y asesor
+    foreach ($fechas_faltantes as $fecha) {
+        $insertar = "INSERT INTO novedades (dia, cedula, asesor) 
+                    VALUES ('$fecha', '$cedula', '$asesor')";
+
+        if (mysqli_query($conn, $insertar)) {
+            $insertedRecords++;
+        } else {
+            $errors++;
+        }
+    }
+
     if ($errors === 0) {
         $response['status'] = 'success';
         $response['message'] = 'Archivo subido correctamente.';
     } else {
         $response['status'] = 'error';
-        $response['message'] = 'Error al subir archivo. Detalles: ' . $e->getMessage();
+        $response['message'] = 'Error al subir archivo.';
     }
 
     $response['total_records'] = $cantidad_regist_agregados;
@@ -66,3 +101,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include_once("conexion_ocm_bogota.php");
     include_once("sql.php");
 }
+?>

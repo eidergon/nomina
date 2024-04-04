@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $tipo_documento = !empty($datos[1]) ? ($datos[1]) : '';
             $cc_user = !empty($datos[2]) ? ($datos[2]) : '';
             $contraseña = !empty($datos[3]) ? ($datos[3]) : '';
-            $fecha = !empty($datos[4]) ? ($datos[4]) : '';
+            $fecha = !empty($datos[4]) ? date('Y-m-d', strtotime($datos[4])) : '';
             $hora_contrato = !empty($datos[5]) ? ($datos[5]) : '';
             $jefe = !empty($datos[6]) ? ($datos[6]) : '';
             $campaña = !empty($datos[7]) ? ($datos[7]) : '';

@@ -1,4 +1,9 @@
 <?php
+// $servername = "10.206.173.188:3306";
+// $username = "mysqldb";
+// $password = "Colombia2025=";
+// $database = "nomina";
+
 $servername = "localhost";
 $username = "root";
 $password = "";
