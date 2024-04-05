@@ -11,6 +11,9 @@ $nombre = $_SESSION["nombre"];
 
 $partesNombre = explode(" ", $nombre);
 $primerNombre = $partesNombre[0];
+$primerApellido = $partesNombre[count($partesNombre) - 2];
+$nombreCompleto = $primerNombre . ' ' . $primerApellido;
+
 require_once 'conexion.php';
 
 if (isset($_POST['fecha'])) {
@@ -21,7 +24,7 @@ if (isset($_POST['fecha'])) {
         WHERE dia  = '$termino' AND tardanza = 'injustificada'";
     } else {
         $sql = "SELECT * FROM info_malla inner join login on info_malla.cedula = login.Cc_user
-        WHERE login.Jefe_inmediato LIKE '%$primerNombre%' 
+        WHERE login.Jefe_inmediato LIKE '%$nombreCompleto%' 
         AND info_malla.dia = '$termino' AND tardanza = 'injustificada'";
     }
 

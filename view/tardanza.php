@@ -11,15 +11,17 @@ $nombre = $_SESSION["nombre"];
 
 $partesNombre = explode(" ", $nombre);
 $primerNombre = $partesNombre[0];
-
+$primerApellido = $partesNombre[count($partesNombre) - 2];
+$nombreCompleto = $primerNombre . ' ' . $primerApellido;
 require_once '../php/conexion.php';
+echo $nombreCompleto;
 
 if ($perfil == 'admin') {
     $sql = "SELECT * FROM info_malla
     WHERE dia = DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND tardanza = 'injustificada'";
 } else {
     $sql = "SELECT * FROM info_malla inner join login on info_malla.cedula = login.Cc_user
-    WHERE login.Jefe_inmediato LIKE '%$primerNombre%' 
+    WHERE login.Jefe_inmediato LIKE '%$nombreCompleto%' 
     AND info_malla.dia = DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND tardanza = 'injustificada'";
 }
 
