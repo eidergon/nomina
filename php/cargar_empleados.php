@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $i = 0;
     $errors = 0;
     $insertedRecords = 0;
+    $updatedRecords = 0;
     $existente = 0;
 
     foreach ($lineas as $linea) {
@@ -49,7 +50,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $errors++;
                 }
             } else {
-                $existente++;
+                $updateQuery = "UPDATE login SET nombre='$nombre', tipo_documento='$tipo_documento', Fecha_ingreso='$fecha', Hora_contrato='$hora_contrato', jefe_inmediato='$jefe', campaña='$campaña', subcampaña='$sub_campaña', cargo='$cargo', eps='$eps', ciudad='$ciudad', perfil='$perfil', estado='$estado' WHERE Cc_user='$cc_user'";
+                
+                if(mysqli_query($conn, $updateQuery)){
+                    $existente++;
+                } else {
+                    $errors++;
+                }
             }
         }
 
@@ -61,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $response['message'] = 'Archivo subido correctamente.';
     } else {
         $response['status'] = 'error';
-        $response['message'] = 'Error al subir archivo. Detalles: ' . $e->getMessage();
+        $response['message'] = 'Error al subir archivo.';
     }
 
     $response['total_records'] = $cantidad_regist_agregados;
@@ -70,3 +77,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+?>

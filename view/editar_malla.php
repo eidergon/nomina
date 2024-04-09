@@ -19,7 +19,6 @@
 ?>
 <form class="form" id="editar">
     <span>Malla de Turno</span>
-    <br>
     <label for="">Día laboral</label>
     <input class="input" type="date" name="dia" value="<?php echo $row["dia"]; ?>" readonly>
     <label for="">Asesor</label>

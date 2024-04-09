@@ -51,8 +51,10 @@ $row = $result->fetch_assoc();
         <thead>
             <tr>
                 <th>Día</th>
-                <th>Ingreso</th>
-                <th>Logueo</th>
+                <th>Hora De Ingreso</th>
+                <th>Hora De Salida</th>
+                <th>Hora De Logueo</th>
+                <th>Hora De Deslogueo</th>
                 <th>Tiempo</th>
                 <th>Turno</th>
                 <th>Tardanza</th>
@@ -65,8 +67,10 @@ $row = $result->fetch_assoc();
                 <tr scope='row'>
                     <td><?= $row["dia"] ?></td>
                     <td><?= $row["ingreso"] ?></td>
+                    <td><?= $row["salida"] ?></td>
                     <td><?= $row["inicio"] ?></td>
-                    <td><?= floor($tiempo_en_horas) . ":" . round(($tiempo_en_horas - floor($tiempo_en_horas)) * 60); ?></td>
+                    <td><?= $row["final"] ?></td>
+                    <td><?= floor($tiempo_en_horas) . "H:" . str_pad(round(($tiempo_en_horas - floor($tiempo_en_horas)) * 60), 2, "0", STR_PAD_LEFT) . "M"; ?></td>
                     <td><?= $row["turno"] ?></td>
                     <td><?= $row["tardanza"] ?></td>
                     <td><?= $row["novedad"] ?></td>

@@ -44,7 +44,7 @@
                             <li class="php" data-form="ver_info">Informacion</li>
                         </ul>
                     </li>
-                <?php elseif ($perfil === 'SUPERVISOR') : ?>
+                <?php elseif ($perfil === 'SUPERVISOR' || $perfil === 'SUPER OP') : ?>
                     <li class="nav-link service">
                         <a href="#">Mallas <span class="drop-icon"><i class="fa-solid fa-caret-down"></i></span></a>
                         <ul class="drop-down">
@@ -81,7 +81,7 @@
                 <?php endif; ?>
 
                 <!-- Tardanza -->
-                <?php if ($perfil === 'SUPERVISOR' || $perfil === 'admin') : ?>
+                <?php if ($perfil === 'SUPERVISOR' || $perfil === 'SUPER OP' ||  $perfil === 'admin') : ?>
                     <li class="nav-link php" data-form="tardanza">Tardanzas</li>
                 <?php else : ?>
                 <?php endif; ?>
@@ -98,6 +98,11 @@
                     </li>
                 <?php else : ?>
                 <?php endif; ?>
+
+                <?php if ($perfil === 'admin') : ?>
+                    <button class="consulta" id="consulta">Actualizar malla OCM</button>
+                <?php else : ?>
+                <?php endif; ?>
             </ul>
         </nav>
         <div class="icon">
@@ -112,9 +117,3 @@
 </body>
 </html>
 
-<?php
-include_once("../php/conexion_ocm_portabilidad.php");
-include_once("../php/conexion_ocm_medellin.php");
-include_once("../php/conexion_ocm_bogota.php");
-include_once("../php/sql.php");
-?>

@@ -19,7 +19,7 @@ require_once 'conexion.php';
 if (isset($_POST['fecha'])) {
     $termino = $_POST['fecha'];
 
-    if ($perfil == 'admin') {
+    if ($perfil == 'admin' || $perfil === 'SUPER OP') {
         $sql = "SELECT * FROM info_malla
         WHERE dia  = '$termino' AND tardanza = 'injustificada'";
     } else {
@@ -32,7 +32,7 @@ if (isset($_POST['fecha'])) {
 } else {
     $termino = $_GET['dia'];
 
-    if ($perfil == 'admin') {
+    if ($perfil == 'admin' || $perfil === 'SUPER OP') {
         $sql = "SELECT * FROM info_malla
         WHERE dia = '$termino' AND tardanza = 'injustificada'";
     } else {

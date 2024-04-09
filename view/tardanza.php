@@ -16,7 +16,7 @@ $nombreCompleto = $primerNombre . ' ' . $primerApellido;
 require_once '../php/conexion.php';
 echo $nombreCompleto;
 
-if ($perfil == 'admin') {
+if ($perfil == 'admin' || $perfil === 'SUPER OP') {
     $sql = "SELECT * FROM info_malla
     WHERE dia = DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND tardanza = 'injustificada'";
 } else {

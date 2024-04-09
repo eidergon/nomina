@@ -21,7 +21,7 @@ $sql = "SELECT * FROM info_malla WHERE cedula = '$user' AND ((DATE_FORMAT(dia, '
 $result = $conn->query($sql);
 ?>
 
-<?php if ($perfil == 'admin' || $perfil == 'SUPERVISOR') : ?>
+<?php if ($perfil == 'admin' || $perfil == 'SUPERVISOR' || $perfil === 'SUPER OP') : ?>
     <form class="visualizar" id="visualizar2">
         <div class="container-input">
             <input type="text" name="busqueda" autocomplete="off" placeholder="Ingrese Cédula" name="text" class="input">

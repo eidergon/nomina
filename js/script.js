@@ -403,6 +403,22 @@ $(document).ready(function () {
         });
     }
     
+    $('#consulta').click(function(){
+        $.ajax({
+            url: "../php/consulta.php",
+            type: "POST", 
+            success: function(response) {
+                console.log("Script ejecutado correctamente:", response);
+                Swal.fire({
+                    icon: "success",
+                    title: "",
+                    text: "Datos Actualizados.",                });
+            },
+            error: function(xhr, status, error) {
+                console.error("Error al ejecutar el script:", error);
+            }
+        });
+    })
 
     $("#tardanza").change(function () {
         var selectedValue = $(this).val();

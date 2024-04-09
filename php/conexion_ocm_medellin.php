@@ -18,14 +18,12 @@ if ($conn_source->connect_error) {
 }
 
 $fechaActual = date("Y-m-d");
-
-$primerDiaMesActual = date("Y-m-01", strtotime($fechaActual));
-
-$ultimoDiaMesActual = date("Y-m-t", strtotime($fechaActual));
+$fechaTresDiasAtras = date("Y-m-d", strtotime("-3 days", strtotime($fechaActual)));
 
 $sql = "SELECT agent, DATE(fecha) as Dia, SUM(segundos) as Tiempo, MIN(TIME(fecha)) AS Inicio, MAX(TIME(fecha)) AS Final
         FROM ocm_log_agentstatus
-        WHERE fecha BETWEEN '$primerDiaMesActual 00:00:00' AND '$ultimoDiaMesActual 23:59:59' GROUP BY agent, Dia";
+        WHERE fecha >= '$fechaTresDiasAtras 00:00:00' AND fecha <= '$fechaActual 23:59:59'
+        GROUP BY agent, Dia";
 
 $result = $conn_source->query($sql);
 
