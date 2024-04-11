@@ -472,6 +472,7 @@ main {
     border-collapse: collapse;
     border-spacing: 0;
     overflow: hidden;
+    width: 20%;
 }
 
 th {

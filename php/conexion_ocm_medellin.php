@@ -9,6 +9,11 @@ $username_destination = "root";
 $password_destination = "";
 $database_destination = "solicitud";
 
+// $servername_destination = "10.206.173.188:3306";
+// $username_destination = "mysqldb";
+// $password_destination = "0n3C0nt4ct1nt3rn4c10n4l.06++";
+// $database_destination = "nomina";
+
 // Create source connection
 $conn_source = new mysqli($servername_source, $username_source, $password_source, $database_source);
 

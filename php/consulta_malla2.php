@@ -64,25 +64,44 @@ $conn->close();
         <thead>
             <tr>
                 <th>Día</th>
-                <th>cedula</th>
-                <th>Ingreso</th>
-                <th>Salida</th>
-                <th>Asesor</th>
+                <th>Agente</th>
+                <th>Hora De Ingreso</th>
+                <th>Hora De Salida</th>
+                <th>Hora De Logueo</th>
+                <th>Hora De Deslogueo</th>
                 <th>Tiempo</th>
+                <th>Turno</th>
+                <th>Tardanza</th>
                 <th>Novedad</th>
+                <th>Minutos de tardanza</th>
+                <th>Descuento</th>
             </tr>
         </thead>
         <tbody>
             <?php while ($row = $result->fetch_assoc()) : ?>
-                <?php $tiempo_en_horas = $row["tiempo"] / 3600;?>
+                <?php $tiempo_en_horas = $row["tiempo"] / 3600; ?>
                 <tr scope='row'>
                     <td><?= $row["dia"] ?></td>
-                    <td><?= $row["cedula"] ?></td>
+                    <td><?= $row["asesor"] ?></td>
                     <td><?= $row["ingreso"] ?></td>
                     <td><?= $row["salida"] ?></td>
-                    <td><?= $row["asesor"] ?></td>
+                    <td><?= $row["inicio"] ?></td>
+                    <td><?= $row["final"] ?></td>
                     <td><?= floor($tiempo_en_horas) . "H:" . str_pad(round(($tiempo_en_horas - floor($tiempo_en_horas)) * 60), 2, "0", STR_PAD_LEFT) . "M"; ?></td>
+                    <td><?= $row["turno"] ?></td>
+                    <td><?= $row["tardanza"] ?></td>
                     <td><?= $row["novedad"] ?></td>
+                    <?php if ($row["tardanza"] == "Injustificada") : ?>
+                        <?php $ingreso = new DateTime($row["ingreso"]);
+                        $inicio = new DateTime($row["inicio"]);
+                        $diferencia = $ingreso->diff($inicio);
+                        $minutos_diferencia = $diferencia->format('%i'); ?>
+                        <td><?= $minutos_diferencia ?>M</td>
+                        <td>$<?= $descuento = ($minutos_diferencia / 60) * 5532  ?></td>
+                    <?php else : ?>
+                        <td></td>
+                        <td></td>
+                    <?php endif; ?>
                 </tr>
             <?php endwhile; ?>
         </tbody>
@@ -92,15 +111,22 @@ $conn->close();
         <thead>
             <tr>
                 <th>Día</th>
-                <th>cedula</th>
-                <th>Ingreso</th>
-                <th>Salida</th>
-                <th>Asesor</th>
+                <th>Agente</th>
+                <th>Hora De Ingreso</th>
+                <th>Hora De Salida</th>
+                <th>Hora De Logueo</th>
+                <th>Hora De Deslogueo</th>
+                <th>Tiempo</th>
+                <th>Turno</th>
+                <th>Tardanza</th>
+                <th>Novedad</th>
+                <th>Minutos de tardanza</th>
+                <th>Descuento</th>
             </tr>
         </thead>
         <tbody>
             <tr scope='row'>
-                <td colspan='5' class='no-data'>Sin Datos</td>
+                <td colspan='12' class='no-data'>Sin Datos</td>
             </tr>
         </tbody>
     </table>

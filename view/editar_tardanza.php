@@ -44,6 +44,7 @@
             <option value="Cumplimiento en Ventas">Cumplimiento en Ventas</option>
             <option value="Acelerador de tiempo">Acelerador de tiempo</option>
             <option value="Pago de tiempo">Pago de tiempo</option>
+            <option value="Falla OCM">Falla OCM</option>
         </select>
     </label>
     <div class="eg">

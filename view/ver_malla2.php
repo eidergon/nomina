@@ -36,20 +36,41 @@ $result = $conn->query($sql);
             <thead>
                 <tr>
                     <th>Día</th>
-                    <th>cedula</th>
-                    <th>Ingreso</th>
-                    <th>Salida</th>
-                    <th>Asesor</th>
+                    <th>Hora De Ingreso</th>
+                    <th>Hora De Salida</th>
+                    <th>Hora De Logueo</th>
+                    <th>Hora De Deslogueo</th>
+                    <th>Tiempo</th>
+                    <th>Turno</th>
+                    <th>Tardanza</th>
+                    <th>Novedad</th>
+                    <th>Minutos de tardanza</th>
+                    <th>Desacuento</th>
                 </tr>
             </thead>
             <?php while ($row = $result->fetch_assoc()) : ?>
                 <tbody>
                     <tr scope='row'>
                         <td><?= $row["dia"] ?></td>
-                        <td><?= $row["cedula"] ?></td>
                         <td><?= $row["ingreso"] ?></td>
                         <td><?= $row["salida"] ?></td>
-                        <td><?= $row["asesor"] ?></td>
+                        <td><?= $row["inicio"] ?></td>
+                        <td><?= $row["final"] ?></td>
+                        <td><?= floor($tiempo_en_horas) . "H:" . str_pad(round(($tiempo_en_horas - floor($tiempo_en_horas)) * 60), 2, "0", STR_PAD_LEFT) . "M"; ?></td>
+                        <td><?= $row["turno"] ?></td>
+                        <td><?= $row["tardanza"] ?></td>
+                        <td><?= $row["novedad"] ?></td>
+                        <?php if ($row["tardanza"] == "Injustificada") : ?>
+                            <?php $ingreso = new DateTime($row["ingreso"]);
+                            $inicio = new DateTime($row["inicio"]);
+                            $diferencia = $ingreso->diff($inicio);
+                            $minutos_diferencia = $diferencia->format('%i'); ?>
+                            <td><?= $minutos_diferencia ?>M</td>
+                            <td><?= $descuento = $minutos_diferencia * 5.416  ?></td>
+                        <?php else : ?>
+                            <td></td>
+                            <td></td>
+                        <?php endif; ?>
                     </tr>
                 </tbody>
             <?php endwhile; ?>

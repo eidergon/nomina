@@ -49,7 +49,6 @@
                         <a href="#">Mallas <span class="drop-icon"><i class="fa-solid fa-caret-down"></i></span></a>
                         <ul class="drop-down">
                             <li class="php" data-form="ver_malla2">Turno</li>
-                            <li class="php" data-form="ver_info2">Informacion</li>
                         </ul>
                     </li>
                 <?php else : ?>

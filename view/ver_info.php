@@ -43,10 +43,12 @@ $result = $conn->query($sql);
                     <th>Turno</th>
                     <th>Tardanza</th>
                     <th>Novedad</th>
+                    <th>Minutos de tardanza</th>
+                    <th>Desacuento</th>
                 </tr>
             </thead>
             <?php while ($row = $result->fetch_assoc()) : ?>
-                <?php $tiempo_en_horas = $row["tiempo"] / 3600;?>
+                <?php $tiempo_en_horas = $row["tiempo"] / 3600; ?>
                 <tbody>
                     <tr scope='row'>
                         <td><?= $row["dia"] ?></td>
@@ -58,6 +60,17 @@ $result = $conn->query($sql);
                         <td><?= $row["turno"] ?></td>
                         <td><?= $row["tardanza"] ?></td>
                         <td><?= $row["novedad"] ?></td>
+                        <?php if ($row["tardanza"] == "Injustificada") : ?>
+                            <?php $ingreso = new DateTime($row["ingreso"]);
+                            $inicio = new DateTime($row["inicio"]);
+                            $diferencia = $ingreso->diff($inicio);
+                            $minutos_diferencia = $diferencia->format('%i'); ?>
+                            <td><?= $minutos_diferencia ?>M</td>
+                            <td>$<?= $descuento = ($minutos_diferencia / 60) * 5532  ?></td>
+                        <?php else : ?>
+                            <td></td>
+                            <td></td>
+                        <?php endif; ?>
                     </tr>
                 </tbody>
             <?php endwhile; ?>

@@ -33,6 +33,7 @@
         <option value="LR">Licencia Remunerada</option>
         <option value="PNR">Permiso NO Remunerado</option>
         <option value="SUS">Suspensión</option>
+        <option value="COM">Compensatorio</option>
     </select>
 
     <button class="button"><p class="submit">Subir</p></button>
