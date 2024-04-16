@@ -8,6 +8,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
 $perfil = $_SESSION["perfil"];
 $nombre = $_SESSION["nombre"];
+$ciudad = $_SESSION["ciudad"];
 
 $partesNombre = explode(" ", $nombre);
 $primerNombre = $partesNombre[0];
@@ -16,9 +17,13 @@ $nombreCompleto = $primerNombre . ' ' . $primerApellido;
 require_once '../php/conexion.php';
 echo $nombreCompleto;
 
-if ($perfil == 'admin' || $perfil === 'SUPER OP') {
+if ($perfil == 'admin') {
     $sql = "SELECT * FROM info_malla
     WHERE dia = DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND tardanza = 'injustificada'";
+} elseif ($perfil === 'SUPER OP') {
+    $sql = "SELECT * FROM info_malla inner join login on info_malla.cedula = login.Cc_user
+    WHERE login.ciudad = '$ciudad' 
+    AND info_malla.dia = DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND tardanza = 'injustificada'";
 } else {
     $sql = "SELECT * FROM info_malla inner join login on info_malla.cedula = login.Cc_user
     WHERE login.Jefe_inmediato LIKE '%$nombreCompleto%' 

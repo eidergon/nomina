@@ -28,7 +28,7 @@
         <nav class="navbar">
             <ul class="nav-links">
                 <!-- Mallas -->
-                <?php if ($perfil === 'SUPER WF' || $perfil === 'admin') : ?>
+                <?php if ($perfil === 'SUPER WF' || $perfil === 'admin' || $perfil === 'JEFE WF') : ?>
                     <li class="nav-link service">
                         <a>Mallas <span class="drop-icon"><i class="fa-solid fa-caret-down"></i></span></a>
                         <ul class="drop-down">

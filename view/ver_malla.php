@@ -36,10 +36,10 @@ $result = $conn->query($sql);
             <thead>
                 <tr>
                     <th>Día</th>
+                    <th>Asesor</th>
                     <th>cedula</th>
                     <th>Ingreso</th>
                     <th>Salida</th>
-                    <th>Asesor</th>
                     <?php if ($perfil == 'SUPER WF' || $perfil == 'admin') : ?>
                         <th>Editar</th>
                     <?php else : ?>
@@ -50,10 +50,10 @@ $result = $conn->query($sql);
                 <tbody>
                     <tr scope='row'>
                         <td><?= $row["dia"] ?></td>
+                        <td><?= $row["asesor"] ?></td>
                         <td><?= $row["cedula"] ?></td>
                         <td><?= $row["ingreso"] ?></td>
                         <td><?= $row["salida"] ?></td>
-                        <td><?= $row["asesor"] ?></td>
                         <?php if ($perfil == 'SUPER WF' || $perfil == 'admin') : ?>
                             <td>
                                 <a class="link" data-form="edit_malla" data-id='<?= $row['id'] ?>'>

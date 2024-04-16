@@ -8,6 +8,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
 $perfil = $_SESSION["perfil"];
 $nombre = $_SESSION["nombre"];
+$ciudad = $_SESSION["ciudad"];
 
 $partesNombre = explode(" ", $nombre);
 $primerNombre = $partesNombre[0];
@@ -19,9 +20,13 @@ require_once 'conexion.php';
 if (isset($_POST['fecha'])) {
     $termino = $_POST['fecha'];
 
-    if ($perfil == 'admin' || $perfil === 'SUPER OP') {
+    if ($perfil == 'admin') {
         $sql = "SELECT * FROM info_malla
         WHERE dia  = '$termino' AND tardanza = 'injustificada'";
+    } elseif ($perfil === 'SUPER OP') {
+        $sql = "SELECT * FROM info_malla inner join login on info_malla.cedula = login.Cc_user
+        WHERE login.ciudad = '$ciudad' 
+        AND info_malla.dia = '$termino' AND tardanza = 'injustificada'";
     } else {
         $sql = "SELECT * FROM info_malla inner join login on info_malla.cedula = login.Cc_user
         WHERE login.Jefe_inmediato LIKE '%$nombreCompleto%' 
@@ -32,14 +37,18 @@ if (isset($_POST['fecha'])) {
 } else {
     $termino = $_GET['dia'];
 
-    if ($perfil == 'admin' || $perfil === 'SUPER OP') {
+    if ($perfil == 'admin') {
         $sql = "SELECT * FROM info_malla
-        WHERE dia = '$termino' AND tardanza = 'injustificada'";
+        WHERE dia  = '$termino' AND tardanza = 'injustificada'";
+    } elseif ($perfil === 'SUPER OP') {
+        $sql = "SELECT * FROM info_malla
+        WHERE dia  = '$termino' AND tardanza = 'injustificada' AND ciudad = '$ciudad'";
     } else {
         $sql = "SELECT * FROM info_malla inner join login on info_malla.cedula = login.Cc_user
-        WHERE login.Jefe_inmediato LIKE '%$primerNombre%' 
+        WHERE login.Jefe_inmediato LIKE '%$nombreCompleto%' 
         AND info_malla.dia = '$termino' AND tardanza = 'injustificada'";
     }
+
 
     $result = $conn->query($sql);
 }

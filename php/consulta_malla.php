@@ -7,6 +7,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 }
 
 require_once 'conexion.php';
+$perfil = $_SESSION["perfil"];
 
 if (isset($_POST['busqueda'])) {
     $termino = $_POST['busqueda'];
@@ -64,31 +65,34 @@ $conn->close();
         <thead>
             <tr>
                 <th>Día</th>
+                <th>Asesor</th>
                 <th>cedula</th>
                 <th>Ingreso</th>
                 <th>Salida</th>
-                <th>Asesor</th>
+                <?php if ($perfil == 'JEFE WF' || $perfil == 'admin') : ?>
+                    <th>Novedad</th>
+                    <th>Turno</th>
+                    <th>Tiempo</th>
+                <?php else : ?>
+                <?php endif; ?>
                 <th>Editar</th>
             </tr>
         </thead>
         <tbody>
             <?php while ($row = $result->fetch_assoc()) : ?>
+                <?php $tiempo_en_horas = $row["tiempo"] / 3600; ?>
                 <tr scope='row'>
-                    <td>
-                        <?= $row["dia"] ?>
-                    </td>
-                    <td>
-                        <?= $row["cedula"] ?>
-                    </td>
-                    <td>
-                        <?= $row["ingreso"] ?>
-                    </td>
-                    <td>
-                        <?= $row["salida"] ?>
-                    </td>
-                    <td>
-                        <?= $row["asesor"] ?>
-                    </td>
+                    <td><?= $row["dia"] ?></td>
+                    <td><?= $row["asesor"] ?></td>
+                    <td><?= $row["cedula"] ?></td>
+                    <td><?= $row["ingreso"] ?></td>
+                    <td><?= $row["salida"] ?></td>
+                    <?php if ($perfil == 'JEFE WF' || $perfil == 'admin') : ?>
+                        <td><?= $row["novedad"] ?></td>
+                        <td><?= $row["turno"] ?></td>
+                        <td><?= floor($tiempo_en_horas) . "H:" . str_pad(round(($tiempo_en_horas - floor($tiempo_en_horas)) * 60), 2, "0", STR_PAD_LEFT) . "M"; ?></td>
+                    <?php else : ?>
+                    <?php endif; ?>
                     <td>
                         <button class="link edit" data-form="editar_malla" data-cedula='<?= $row['cedula'] ?>' data-dia='<?= $row['dia'] ?>'>
                             <svg class="css-i6dzq1" stroke-linejoin="round" stroke-linecap="round" fill="none" stroke-width="2" stroke="#FFFFFF" height="24" width="24" viewBox="0 0 24 24">
