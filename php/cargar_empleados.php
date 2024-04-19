@@ -34,8 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $cargo = !empty($datos[9]) ? ($datos[9]) : '';
             $eps = !empty($datos[10]) ? ($datos[10]) : '';
             $ciudad = !empty($datos[11]) ? ($datos[11]) : '';
-            $perfil = !empty($datos[12]) ? ($datos[12]) : '';
-            $estado = !empty($datos[13]) ? ($datos[13]) : '';
+            $retiro = !empty($datos[12]) ? date('Y-m-d', strtotime($datos[12])) : '';
+            $perfil = !empty($datos[13]) ? ($datos[13]) : '';
+            $estado = !empty($datos[14]) ? ($datos[14]) : '';
 
             $checkQuery = "SELECT Cc_user FROM login WHERE Cc_user = '$cc_user'";
             $checkResult = mysqli_query($conn, $checkQuery);
@@ -50,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $errors++;
                 }
             } else {
-                $updateQuery = "UPDATE login SET nombre='$nombre', tipo_documento='$tipo_documento', Fecha_ingreso='$fecha', Hora_contrato='$hora_contrato', jefe_inmediato='$jefe', campaña='$campaña', subcampaña='$sub_campaña', cargo='$cargo', eps='$eps', ciudad='$ciudad', perfil='$perfil', estado='$estado' WHERE Cc_user='$cc_user'";
+                $updateQuery = "UPDATE login SET nombre='$nombre', tipo_documento='$tipo_documento', Fecha_ingreso='$fecha', Hora_contrato='$hora_contrato', jefe_inmediato='$jefe', campaña='$campaña', subcampaña='$sub_campaña', cargo='$cargo', eps='$eps', ciudad='$ciudad', perfil='$perfil', estado='$estado', fecha_retiro='$retiro' WHERE Cc_user='$cc_user'";
                 
                 if(mysqli_query($conn, $updateQuery)){
                     $existente++;

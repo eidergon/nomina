@@ -19,6 +19,7 @@ $sql = "SELECT * FROM info_malla WHERE cedula = '$user' AND ((DATE_FORMAT(dia, '
 
 
 $result = $conn->query($sql);
+$total = 0;
 ?>
 
 <?php if ($perfil == 'admin' || $perfil == 'SUPERVISOR' || $perfil === 'SUPER OP') : ?>
@@ -45,11 +46,11 @@ $result = $conn->query($sql);
                     <th>Tardanza</th>
                     <th>Novedad</th>
                     <th>Minutos de tardanza</th>
-                    <th>Desacuento</th>
+                    <th>Descuento</th>
                 </tr>
             </thead>
-            <?php while ($row = $result->fetch_assoc()) : ?>
-                <tbody>
+            <tbody>
+                <?php while ($row = $result->fetch_assoc()) : ?>
                     <tr scope='row'>
                         <td><?= $row["dia"] ?></td>
                         <td><?= $row["ingreso"] ?></td>
@@ -66,14 +67,16 @@ $result = $conn->query($sql);
                             $diferencia = $ingreso->diff($inicio);
                             $minutos_diferencia = $diferencia->format('%i'); ?>
                             <td><?= $minutos_diferencia ?>M</td>
-                            <td><?= $descuento = $minutos_diferencia * 5.416  ?></td>
+                            <td>$<?= number_format($descuento = ($minutos_diferencia / 60) * 5532, 0, '', '.') ?></td>
+                            <?php $total = $total + $descuento ?>
                         <?php else : ?>
                             <td></td>
                             <td></td>
                         <?php endif; ?>
                     </tr>
-                </tbody>
-            <?php endwhile; ?>
+                <?php endwhile; ?>
+            </tbody>
+            <h3><?php echo "Descuento Total: $" . number_format($total, 0, '', '.') ?></h3>
         </table>
     <?php else : ?>
         <table class='table' id="table">

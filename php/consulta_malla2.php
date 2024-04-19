@@ -49,6 +49,7 @@ if (isset($_POST['busqueda'])) {
 }
 
 $conn->close();
+$total = 0;
 ?>
 
 <form class="visualizar" id="visualizar2">
@@ -97,7 +98,8 @@ $conn->close();
                         $diferencia = $ingreso->diff($inicio);
                         $minutos_diferencia = $diferencia->format('%i'); ?>
                         <td><?= $minutos_diferencia ?>M</td>
-                        <td>$<?= $descuento = ($minutos_diferencia / 60) * 5532  ?></td>
+                        <td>$<?= number_format($descuento = ($minutos_diferencia / 60) * 5532, 0, '', '.') ?></td>
+                        <?php $total = $total + $descuento ?>
                     <?php else : ?>
                         <td></td>
                         <td></td>
@@ -105,6 +107,7 @@ $conn->close();
                 </tr>
             <?php endwhile; ?>
         </tbody>
+        <h3><?php echo "Descuento Total: $" . number_format($total, 0, '', '.') ?></h3>
     </table>
 <?php else : ?>
     <table class='table' id="table">

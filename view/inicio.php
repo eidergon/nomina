@@ -68,7 +68,7 @@
                 </li> -->
 
                 <!-- Novedad -->
-                <?php if ($perfil === 'SUPER TH' || $perfil === 'admin') : ?>
+                <?php if ($perfil === 'SUPER TH' || $perfil === 'SUPER WF' || $perfil === 'admin' || $perfil === 'JEFE WF') : ?>
                     <li class="nav-link service">
                         <a href="#">Novedades <span class="drop-icon"><i class="fa-solid fa-caret-down"></i></span></a>
                         <ul class="drop-down">

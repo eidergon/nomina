@@ -19,6 +19,7 @@ $sql = "SELECT * FROM info_malla WHERE cedula = '$user' AND ((DATE_FORMAT(dia, '
 
 
 $result = $conn->query($sql);
+$total = 0;
 ?>
 
 <?php if ($result->num_rows > 0) : ?>
@@ -44,12 +45,12 @@ $result = $conn->query($sql);
                     <th>Tardanza</th>
                     <th>Novedad</th>
                     <th>Minutos de tardanza</th>
-                    <th>Desacuento</th>
+                    <th>Descuento</th>
                 </tr>
             </thead>
-            <?php while ($row = $result->fetch_assoc()) : ?>
-                <?php $tiempo_en_horas = $row["tiempo"] / 3600; ?>
-                <tbody>
+            <tbody>
+                <?php while ($row = $result->fetch_assoc()) : ?>
+                    <?php $tiempo_en_horas = $row["tiempo"] / 3600; ?>
                     <tr scope='row'>
                         <td><?= $row["dia"] ?></td>
                         <td><?= $row["ingreso"] ?></td>
@@ -66,14 +67,16 @@ $result = $conn->query($sql);
                             $diferencia = $ingreso->diff($inicio);
                             $minutos_diferencia = $diferencia->format('%i'); ?>
                             <td><?= $minutos_diferencia ?>M</td>
-                            <td>$<?= $descuento = ($minutos_diferencia / 60) * 5532  ?></td>
+                            <td>$<?= number_format($descuento = ($minutos_diferencia / 60) * 5532, 0, '', '.') ?></td>
+                            <?php $total = $total + $descuento ?>
                         <?php else : ?>
                             <td></td>
                             <td></td>
                         <?php endif; ?>
                     </tr>
-                </tbody>
-            <?php endwhile; ?>
+                <?php endwhile; ?>
+            </tbody>
+            <h3><?php echo "Descuento Total: $" . number_format($total, 0, '', '.') ?></h3>
         </table>
     </div>
 <?php else : ?>
@@ -89,17 +92,21 @@ $result = $conn->query($sql);
             <thead>
                 <tr>
                     <th>Día</th>
-                    <th>Ingreso</th>
-                    <th>Logueo</th>
+                    <th>Hora De Ingreso</th>
+                    <th>Hora De Salida</th>
+                    <th>Hora De Logueo</th>
+                    <th>Hora De Deslogueo</th>
                     <th>Tiempo</th>
                     <th>Turno</th>
                     <th>Tardanza</th>
                     <th>Novedad</th>
+                    <th>Minutos De Tardanza</th>
+                    <th>Descuento</th>
                 </tr>
             </thead>
             <tbody>
                 <tr scope='row'>
-                    <td colspan='7' class='no-data'>Sin Datos</td>
+                    <td colspan='11' class='no-data'>Sin Datos</td>
                 </tr>
             </tbody>
         </table>
